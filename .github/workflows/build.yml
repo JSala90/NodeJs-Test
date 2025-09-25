@@ -1,0 +1,45 @@
+name: Build Electron App for Windows
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Instalar dependencias
+      run: npm install
+      
+    - name: Compilar aplicación Electron
+      run: npm run build
+      
+    - name: Subir artefactos de build
+      uses: actions/upload-artifact@v4
+      with:
+        name: Visualizador-BIW-Calidad
+        path: |
+          dist/*.exe
+          dist/*.blockmap
+        retention-days: 30
+        
+    - name: Crear Release en GitHub
+      if: github.ref == 'refs/heads/main'
+      uses: softprops/action-gh-release@v1
+      with:
+        files: dist/*.exe
+        generate_release_notes: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
