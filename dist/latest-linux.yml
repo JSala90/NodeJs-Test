@@ -1,9 +1,0 @@
-version: 1.0.0
-files:
-  - url: calidad-biwa-app-1.0.0.AppImage
-    sha512: FFWGUxkfBuwVlFbBcn3zCCn+yYRKbuKOdra03gntiwQCEHpVlKzemEiqJ59+06G+/uIr5KcpLAMqxDi/L4ZeCA==
-    size: 104053459
-    blockMapSize: 109287
-path: calidad-biwa-app-1.0.0.AppImage
-sha512: FFWGUxkfBuwVlFbBcn3zCCn+yYRKbuKOdra03gntiwQCEHpVlKzemEiqJ59+06G+/uIr5KcpLAMqxDi/L4ZeCA==
-releaseDate: '2025-09-25T10:09:33.467Z'
