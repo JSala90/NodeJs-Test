@@ -3,11 +3,9 @@ name: Build Electron App for Windows
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
 
 jobs:
-  build:
+  build-windows:
     runs-on: windows-latest
     
     steps:
@@ -23,23 +21,12 @@ jobs:
     - name: Instalar dependencias
       run: npm install
       
-    - name: Compilar aplicación Electron
-      run: npm run build
+    - name: Compilar aplicación Electron (solo Windows)
+      run: npx electron-builder --win --x64
       
-    - name: Subir artefactos de build
+    - name: Subir artefacto portable
       uses: actions/upload-artifact@v4
       with:
-        name: Visualizador-BIW-Calidad
-        path: |
-          dist/*.exe
-          dist/*.blockmap
+        name: Visualizador-BIW-Calidad-Windows
+        path: dist/*.exe
         retention-days: 30
-        
-    - name: Crear Release en GitHub
-      if: github.ref == 'refs/heads/main'
-      uses: softprops/action-gh-release@v1
-      with:
-        files: dist/*.exe
-        generate_release_notes: true
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
